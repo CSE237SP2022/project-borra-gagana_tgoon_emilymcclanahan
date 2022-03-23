@@ -1,0 +1,8 @@
+Assignment_1 Test 80
+Assignment_2 Hw 90
+Assignment_3 Test 75
+Assignment_4 Hw 95
+Assignment_5 Par 77
+Assignment_6 Hw 66
+Assignment_7 Par 99
+Assignment_8 Test 83

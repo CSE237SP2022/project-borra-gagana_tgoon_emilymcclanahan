@@ -17,6 +17,9 @@ public class gradeCalculator {
 
 		Hashtable<String, Integer> gradingScale = createGradingScale(weightsList);
 		Hashtable<String, ArrayList<Integer>> grades = createGrades(gradesList,gradingScale);
+		
+		float finalGrade = calculateFinalGrade(grades,gradingScale);
+		System.out.println(finalGrade);
 	}
 	
 
@@ -64,5 +67,27 @@ public class gradeCalculator {
 			grades.put(words[1], currentGrades);
 		}
 		return grades;
+	}
+	
+	public static Float calculateFinalGrade(Hashtable<String, ArrayList<Integer>> grades, Hashtable<String, Integer> gradingScale) {
+		
+		float finalGrade = 0;
+		
+		Enumeration<String> gradeTypes = grades.keys();
+		while (gradeTypes.hasMoreElements()) {
+			String gradeType = gradeTypes.nextElement();
+			finalGrade += gradingScale.get(gradeType)*averageArrayList(grades.get(gradeType));
+        }
+	
+		return finalGrade / 100;
+	}
+	
+	public static float averageArrayList(ArrayList<Integer> list) {
+	    float sum = 0;
+	    float size = list.size();
+	    for (int i: list) {
+	        sum += i;
+	    }
+	    return sum/size;
 	}
 }

@@ -1,3 +1,4 @@
+package test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -6,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import org.junit.jupiter.api.Test;
+
+import calculator.gradeCalculator;
 
 class gradeCalculatorTest {
 

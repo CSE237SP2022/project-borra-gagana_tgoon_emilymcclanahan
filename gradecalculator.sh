@@ -1,5 +1,5 @@
 #!/bin/bash
 
-javac -d bin "src/calculator/*.java"
+javac -d bin src/calculator/*.java
 
-java -cp bin "calculator.gradeCalculator"
+java -cp bin calculator.gradeCalculator

@@ -51,7 +51,6 @@ class gradeCalculatorTest {
 		ArrayList<String> grades = new ArrayList<String>() {
             {
                 add("Assignment_1 Test 80");
-                add("Assignment_1 Test 80");
                 add("Assignment_2 Hw 90");
                 add("Assignment_3 Test 75");
                 add("Assignment_4 Hw 95");

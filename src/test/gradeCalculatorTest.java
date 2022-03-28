@@ -90,6 +90,7 @@ class gradeCalculatorTest {
         assertEquals(weights, fileContents);
 	}
 	
+	@Test
 	void testCalculateFinalGrade() {
 		Hashtable<String, ArrayList<Integer>> grades = new Hashtable<>();
 		Hashtable<String, Integer> gradingScale = new Hashtable<>();

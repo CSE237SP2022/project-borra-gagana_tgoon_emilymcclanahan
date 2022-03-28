@@ -70,7 +70,7 @@ public class gradeCalculator {
 		return grades;
 	}
 	
-	public static Float calculateFinalGrade(Hashtable<String, ArrayList<Integer>> grades, Hashtable<String, Integer> gradingScale) {
+	public static float calculateFinalGrade(Hashtable<String, ArrayList<Integer>> grades, Hashtable<String, Integer> gradingScale) {
 		
 		float finalGrade = 0;
 		

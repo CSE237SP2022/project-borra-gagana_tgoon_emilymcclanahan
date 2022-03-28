@@ -10,6 +10,7 @@ public class gradeCalculator {
 
 	public static void main(String[] args) {
 
+		//file paths are hard coded for now
 		String classWeightFilePath = "class/class_weight.txt";
 		String classGradeFilePath = "grades/class_grade.txt";
 		
@@ -22,8 +23,6 @@ public class gradeCalculator {
 		float finalGrade = calculateFinalGrade(grades,gradingScale);
 		System.out.println(finalGrade);
 	}
-	
-
  
 	public static ArrayList<String> readFile(String filePath) {
 				
@@ -49,6 +48,7 @@ public class gradeCalculator {
 	public static Hashtable<String, Integer> createGradingScale(ArrayList<String> fileContents) {
 		Hashtable<String, Integer> gradingScale = new Hashtable<String,Integer>();
 		for (String line : fileContents) {
+			//splitting each line into its 2 separate words; first words (grade type) is they key, second word (grade score) is the value
 			String[] words = line.split(" ",2);
 			gradingScale.put(words[0], Integer.parseInt(words[1]));
 		}
@@ -62,6 +62,7 @@ public class gradeCalculator {
             grades.put(keys.nextElement(),new ArrayList<Integer>());
         }
 		for (String line : fileContents) {
+			//splitting each line into its 3 separate words; first word (assignment) is ignored, second word (grade type) is the key, third word (weight) is the value
 			String[] words = line.split(" ",3);
 			ArrayList<Integer> currentGrades = grades.get(words[1]);
 			currentGrades.add(Integer.parseInt(words[2]));

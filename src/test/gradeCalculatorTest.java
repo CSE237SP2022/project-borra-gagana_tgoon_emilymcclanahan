@@ -13,26 +13,26 @@ import calculator.gradeCalculator;
 
 class gradeCalculatorTest {
 
-	@Test
-	void testCreateGradingScaleLength() {
-		ArrayList<String> fileContents = new ArrayList<String>();
-
-		fileContents.add("Test 60");
-		fileContents.add("Hw 40");		
-		
-		Hashtable<String, Integer> gradingScale = gradeCalculator.createGradingScale(fileContents);
-		assertEquals(2, gradingScale.size());
-	}
+//	@Test
+//	void testCreateGradingScaleLength() {
+//		ArrayList<String> fileContents = new ArrayList<String>();
+//
+//		fileContents.add("Test 60");
+//		fileContents.add("Hw 40");		
+//		
+//		Hashtable<String, Integer> gradingScale = gradeCalculator.createGradingScale(fileContents);
+//		assertEquals(2, gradingScale.size());
+//	}
 	
-	@Test
-	void testAverageArrayList() {
-		ArrayList<Integer> testGrades = new ArrayList<Integer>();
-		testGrades.add(70);
-		testGrades.add(80);
-		testGrades.add(90);
-		float averageGrade = gradeCalculator.averageArrayList(testGrades);
-		assertEquals(80, averageGrade, 0.01);
-	}
+//	@Test
+//	void testAverageArrayList() {
+//		ArrayList<Integer> testGrades = new ArrayList<Integer>();
+//		testGrades.add(70);
+//		testGrades.add(80);
+//		testGrades.add(90);
+//		float averageGrade = gradeCalculator.averageArrayList(testGrades);
+//		assertEquals(80, averageGrade, 0.01);
+//	}
 
 	@Test
 	void testCreateGradesLength() {

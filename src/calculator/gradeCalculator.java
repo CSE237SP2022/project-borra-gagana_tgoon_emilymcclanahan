@@ -92,4 +92,5 @@ public class gradeCalculator {
 	    }
 	    return sum/size;
 	}
+	
 }

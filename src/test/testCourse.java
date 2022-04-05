@@ -75,4 +75,10 @@ public class testCourse {
 	void testGetFinalGrade() {
 		assertEquals(92.2,c.getFinalGrade(),0.01);
 	}
+	
+	@Test
+	void testGetLetterGrade() {
+		assertEquals("B",c.getLetterGrade());
+	}
+	
 }

@@ -66,4 +66,28 @@ public class Course {
 	
 		return finalGrade / 100;
 	}
+	
+	public String getLetterGrade() {
+		if(getFinalGrade() >= 93) {
+			return "A";
+		}
+		
+		else if(getFinalGrade() >= 85) {
+			return "B";
+		}
+		
+		else if(getFinalGrade() >= 75) {
+			return "C";
+		}
+		
+		else if(getFinalGrade() >= 65) {
+			return "D";
+		}
+		
+		else {
+			return "F";
+		}
+		
+	}
+	
 }

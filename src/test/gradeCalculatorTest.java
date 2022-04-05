@@ -71,9 +71,26 @@ class gradeCalculatorTest {
             }
         };
         
-        assertEquals(fileContents, grades);
+        assertEquals(grades, fileContents);
 	}
 	
+	@Test
+	void testReadFileWeights() {
+		String filePath = "class/class_weight.txt";
+		ArrayList<String> fileContents = gradeCalculator.readFile(filePath);
+		
+		ArrayList<String> weights = new ArrayList<String>() {
+            {
+                add("Test 60");
+                add("Hw 20");
+                add("Par 20");
+            }
+        };
+        
+        assertEquals(weights, fileContents);
+	}
+	
+	@Test
 	void testCalculateFinalGrade() {
 		Hashtable<String, ArrayList<Integer>> grades = new Hashtable<>();
 		Hashtable<String, Integer> gradingScale = new Hashtable<>();

@@ -42,12 +42,12 @@ public class testCourse {
 	
 	
 	@Test
-    void testAverageAssignmentType() {
+    void testAverageAssignmentWithinType() {
 		ArrayList<Double> grades = new ArrayList<Double>();
 		grades.add(80.0);
 		grades.add(90.0);
 		grades.add(85.0);
-		double averageGrade = c.averageAssignmentType(grades);
+		double averageGrade = c.averageAssignmentWithinType(grades);
     	assertEquals(85.0, averageGrade, 0.01);
 	}
 	

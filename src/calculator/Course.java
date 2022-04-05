@@ -26,7 +26,7 @@ public class Course {
 		return this.assignments;
 	}
 	
-	public Double averageAssignmentType(ArrayList<Double> grades) {
+	public Double averageAssignmentWithinType(ArrayList<Double> grades) {
 	    Double sum = 0.0;
 	    int size = grades.size();
 	    for (Double grade : grades) {
@@ -61,7 +61,7 @@ public class Course {
 		
 		while (gradeTypes.hasMoreElements()) {
 			String gradeType = gradeTypes.nextElement();
-			finalGrade += this.gradingScale.get(gradeType)*this.averageAssignmentType(grades.get(gradeType));
+			finalGrade += this.gradingScale.get(gradeType)*this.averageAssignmentWithinType(grades.get(gradeType));
         }
 	
 		return finalGrade / 100;

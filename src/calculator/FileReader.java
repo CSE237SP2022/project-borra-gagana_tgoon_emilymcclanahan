@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class FileReader {
 	
-	private String courseWeightFilePath = "class/class_weight.txt";
-	private String courseGradeFilePath = "grades/class_grade.txt";
+	private String courseWeightFilePath;
+	private String courseGradeFilePath;
 	
 	public FileReader(String courseWeightFilePath, String courseGradeFilePath) {
 		this.courseWeightFilePath = courseWeightFilePath;
@@ -18,7 +18,7 @@ public class FileReader {
 	}
 	
 	
-	public ArrayList<String> readFile(String filePath) {
+	private ArrayList<String> readFile(String filePath) {
 		
 		File file = new File("./src/" + filePath);
 		
@@ -39,14 +39,14 @@ public class FileReader {
 		return fileContents;
 	}
 	
-	public Hashtable<String, Integer> createGradingScale() {
+	public Hashtable<String, Double> createGradingScale() {
 		ArrayList<String> fileContents = readFile(courseWeightFilePath);
 		
-		Hashtable<String, Integer> gradingScale = new Hashtable<String,Integer>();
+		Hashtable<String, Double> gradingScale = new Hashtable<String,Double>();
 		for (String line : fileContents) {
 			//splitting each line into its 2 separate words; first words (grade type) is they key, second word (grade score) is the value
 			String[] words = line.split(" ",2);
-			gradingScale.put(words[0], Integer.parseInt(words[1]));
+			gradingScale.put(words[0], Double.parseDouble(words[1]));
 		}
 		return gradingScale;
 	}
@@ -54,13 +54,13 @@ public class FileReader {
 	public ArrayList<Assignment> createAssignments() {
 		ArrayList<String> fileContents = readFile(courseGradeFilePath);
 		
-		ArrayList<Assignment> assignments = ArrayList<Assignment>();
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 				
 		for (String line : fileContents) {
 			//splitting each line into its 3 separate words; assignment, assignment type, weight
 			String[] words = line.split(" ",3);
 			
-			Assignment assignment = new Assignment(words[2], words[1], words[0]);
+			Assignment assignment = new Assignment(Double.parseDouble(words[2]), words[1], words[0]);
 			assignments.add(assignment);
 		}
 		return assignments;

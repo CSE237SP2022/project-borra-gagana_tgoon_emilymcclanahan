@@ -9,7 +9,8 @@ import java.util.*;
 public class gradeCalculator {
 
 	public static void main(String[] args) {
-		System.out.println("This is grade calculator");
+		Bearbot bearbot = new Bearbot();
+		bearbot.welcome();
 	}
  
 	

@@ -16,7 +16,7 @@ import calculator.Assignment;
 
 public class testCourse {
 	
-	private Course c;
+	private Course courseTest;
 	
 	@BeforeEach
 	void setup() {
@@ -37,7 +37,7 @@ public class testCourse {
 		gradingScale.put("Hw",40.0);
 		gradingScale.put("Test",60.0);
 		
-		c = new Course(gradingScale,assignments);
+		courseTest = new Course(gradingScale,assignments);
 	}
 	
 	
@@ -47,14 +47,14 @@ public class testCourse {
 		grades.add(80.0);
 		grades.add(90.0);
 		grades.add(85.0);
-		double averageGrade = c.averageAssignmentWithinType(grades);
+		double averageGrade = courseTest.averageAssignmentWithinType(grades);
     	assertEquals(85.0, averageGrade, 0.01);
 	}
 	
 	@Test
 	void testSeparateAssignmentsByTypeNumberOfAssignments() {
 		
-		Hashtable<String, ArrayList<Double>> grades = c.separateAssignmentsByType(c.getAssignments());
+		Hashtable<String, ArrayList<Double>> grades = courseTest.separateAssignmentsByType(courseTest.getAssignments());
 		Enumeration<String> gradeTypes = grades.keys();
 		
 		while (gradeTypes.hasMoreElements()) {
@@ -66,19 +66,19 @@ public class testCourse {
 	
 	@Test
 	void testSeparateAssignmentsByTypeKeysEqual() {
-		Hashtable<String, ArrayList<Double>> grades = c.separateAssignmentsByType(c.getAssignments());
+		Hashtable<String, ArrayList<Double>> grades = courseTest.separateAssignmentsByType(courseTest.getAssignments());
 		
-		assertTrue(grades.keySet().equals(c.getGradingScale().keySet()));
+		assertTrue(grades.keySet().equals(courseTest.getGradingScale().keySet()));
 	}
 	
 	@Test
 	void testGetFinalGrade() {
-		assertEquals(92.2,c.getFinalGrade(),0.01);
+		assertEquals(92.2,courseTest.getFinalGrade(),0.01);
 	}
 	
 	@Test
 	void testGetLetterGrade() {
-		assertEquals("B",c.getLetterGrade());
+		assertEquals("B",courseTest.getLetterGrade());
 	}
 	
 }

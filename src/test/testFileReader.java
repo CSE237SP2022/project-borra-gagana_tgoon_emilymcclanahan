@@ -11,7 +11,7 @@ import calculator.gradeCalculator;
 import calculator.Assignment;
 import calculator.FileReader;
 
-class FileReaderTest {
+class testFileReader {
 
 	@Test
 	void testCreateGradingScaleLength() {

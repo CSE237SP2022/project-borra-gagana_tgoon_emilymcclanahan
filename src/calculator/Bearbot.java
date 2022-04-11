@@ -9,7 +9,6 @@ public class Bearbot {
 
 	private Scanner scanner = new Scanner(System.in);
 	
-	
 	public String prompt() {
 		String userInput = scanner.nextLine();
 		return userInput;
@@ -33,11 +32,15 @@ public class Bearbot {
 		return dateFiles;
 	}
 	
+	public boolean arrayContainsString(String[] array, String testString) {
+		return Arrays.stream(array).anyMatch(testString::equals);
+	}
+	
 	public void welcome() {
 		System.out.println("Hi, I'm BearBot, your friendly grade calculator! Please pick a class from the list below!");
 		String[] courses = printCourses();
 		String courseName = prompt();
-		if (Arrays.stream(courses).anyMatch(courseName::equals)) {
+		if (arrayContainsString(courses,courseName)) {
 			getDesiredDateFile(courseName);
 		}
 		else {
@@ -50,7 +53,7 @@ public class Bearbot {
 		System.out.println("Which day would you like to see your grades for?");
 		String[] dateFiles = printDateFiles(courseName);
 		String dateFileName = prompt();
-		if (Arrays.stream(dateFiles).anyMatch(dateFileName::equals)) {
+		if (arrayContainsString(dateFiles,dateFileName)) {
 			printGrade(courseName, dateFileName);
 		}
 		else {
@@ -59,7 +62,7 @@ public class Bearbot {
 		}
 	}
 	
-	public void printGrade(String courseName, String dateFileName) {
+	public double printGrade(String courseName, String dateFileName) {
 		
 		String courseWeightsFilePath = "courses/" + courseName + "/weights.txt";
 		String courseGradeFilePath = "courses/" + courseName + "/grades/" + dateFileName;
@@ -76,7 +79,9 @@ public class Bearbot {
 		
 		System.out.println("Your grade for " + courseName + " is: " + courseGrade + ", " + courseLetterGrade);
 		
+		return courseGrade;
 	}
+
 	
 	
 }

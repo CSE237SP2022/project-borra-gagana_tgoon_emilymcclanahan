@@ -25,7 +25,7 @@ Java command line program that is fed in a text file with class assignment weigh
  - Created a Bearbot to be able to list currently available courses to the user upon starting program
  - Created a course object to output the letter grade to the user
 
-~We currently only have CSE237 as the only available course listed. There is only one date file available to test as well. In Iteration 3, we will allow users to create more courses and date files.~
+We currently only have CSE237 as the only available course listed. There is only one date file available to test as well. In Iteration 3, we will allow users to create more courses and date files.
 
  Everything for this iteration should be functional. To run the bash script: ./gradecalculator.sh
 

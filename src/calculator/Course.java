@@ -29,6 +29,9 @@ public class Course {
 	public Double averageAssignmentWithinType(ArrayList<Double> grades) {
 		Double sum = 0.0;
 		int size = grades.size();
+		if (size == 0) {
+			return 100.0;
+		}
 		for (Double grade : grades) {
 			sum += grade;
 		}
@@ -58,6 +61,10 @@ public class Course {
 	public Double getFinalGrade() {
 
 		Double finalGrade = 0.0;
+		
+		if (this.assignments.isEmpty()) {
+			return 100.0;
+		}
 
 		Hashtable<String, ArrayList<Double>> grades = this.separateAssignmentsByType(this.assignments);
 

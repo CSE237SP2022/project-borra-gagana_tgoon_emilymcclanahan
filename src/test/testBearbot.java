@@ -26,14 +26,14 @@ class testBearbot {
 	void testPrintCoureses() {
 		String [] courses = bearbotTest.printCourses();
 		
-		assertEquals(true,Arrays.stream(courses).anyMatch("CSE237"::equals));
+		assertTrue(Arrays.stream(courses).anyMatch("CSE237"::equals));
 	}
 	
 	@Test
 	void testPrintDateFiles() {
 		String [] dateFiles = bearbotTest.printDateFiles("CSE237");
 		
-		assertEquals(true,Arrays.stream(dateFiles).anyMatch("04_06_2020.txt"::equals));
+		assertTrue(Arrays.stream(dateFiles).anyMatch("04_06_2020.txt"::equals));
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ class testBearbot {
 		String[] testArray = {"hi","bye"};
 		boolean doesContainString = bearbotTest.arrayContainsString(testArray, "hi");
 		
-		assertEquals(true,doesContainString);
+		assertTrue(doesContainString);
 	}
 	
 	@Test
@@ -58,8 +58,70 @@ class testBearbot {
 		String[] testArray = {"hi","bye"};
 		boolean doesContainString = bearbotTest.arrayContainsString(testArray, "hello");
 		
-		assertEquals(false,doesContainString);
+		assertFalse(doesContainString);
 	}
 	
-
+	@Test
+	void testisValidStringInputTrue() {
+		String testInput = "hello";
+		boolean isValidStringInput = bearbotTest.isValidStringInput(testInput);
+		
+		assertTrue(isValidStringInput);
+	}
+	
+	@Test
+	void testisValidStringInputBlank() {
+		String testInput = "";
+		boolean isValidStringInput = bearbotTest.isValidStringInput(testInput);
+		
+		assertFalse(isValidStringInput);
+	}
+	
+	@Test
+	void testisValidStringInputContainsSpaces() {
+		String testInput = "hello world";
+		boolean isValidStringInput = bearbotTest.isValidStringInput(testInput);
+		
+		assertFalse(isValidStringInput);
+	}
+	
+	@Test
+	void testisValidPercentInputTrue() {
+		String testInput = "90";
+		boolean isValidPercentInput = bearbotTest.isValidPercentInput(testInput);
+		
+		assertTrue(isValidPercentInput);
+	}
+	
+	@Test
+	void testisValidPercentInputZero() {
+		String testInput = "0";
+		boolean isValidPercentInput = bearbotTest.isValidPercentInput(testInput);
+		
+		assertTrue(isValidPercentInput);
+	}
+	
+	@Test
+	void testisValidPercentInputNonNumeric() {
+		String testInput = "hello";
+		boolean isValidPercentInput = bearbotTest.isValidPercentInput(testInput);
+		
+		assertFalse(isValidPercentInput);
+	}
+	
+	@Test
+	void testisValidPercentInputContainsSpaces() {
+		String testInput = "1 2";
+		boolean isValidPercentInput = bearbotTest.isValidPercentInput(testInput);
+		
+		assertFalse(isValidPercentInput);
+	}
+	
+	@Test
+	void testisValidPercentInputBlank() {
+		String testInput = "";
+		boolean isValidPercentInput = bearbotTest.isValidPercentInput(testInput);
+		
+		assertFalse(isValidPercentInput);
+	}
 }

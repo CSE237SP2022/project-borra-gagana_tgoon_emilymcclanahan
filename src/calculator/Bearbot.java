@@ -72,28 +72,48 @@ public class Bearbot {
 			createNewCourse();
 		}
 		else {
-			System.out.println("Created '" + newCourseName + "' course.");
-			addNewAssignmentType(newCourseName);
+			System.out.println("Please create at least one assignment type for course '" + newCourseName + "'.");
+			String assignmentTypeAndWeight = createNewAssignmentType(newCourseName);
+			//TOM:
+			//Here is where you probably want to make the text file. This is after they have inputting the first assignment type, so you don't have to worry 
+			//about having just a blank text file.
+			//The "assignmentTypeAndWeight variable above should be formatting correctly as "type weight" so that you can just add it into the text file as is. 
+			//The print statement below indicates that the course was successfully created. I feel like that would go here, but if I'm wrong, feel free to move 
+			//that as needed. I could theoretically see moving it to where my "Done!" print statement is, but only if the file isn't officially added until then.
+			
+			System.out.println("Successfully created '" + newCourseName + "' course.");
+			
+			promptAddNewAssignmentType(newCourseName);
 		}
 	}
 	
-	public void addNewAssignmentType(String courseName) {
+	public String createNewAssignmentType(String courseName) {
+		String assignmentTypeName = promptAssignmentType();
+		String assignmentWeight = promptWeight(assignmentTypeName);
+		
+		System.out.println("Assignment '" + assignmentTypeName + "' with a weight of " + assignmentWeight + " added to course '" + courseName + "'.");
+		
+		return assignmentTypeName + " " + assignmentWeight;
+	}
+	
+	public void promptAddNewAssignmentType(String courseName) {
 		System.out.println("Would you like to add a new assignment type for '" + courseName + "' course? Please type 'yes' or 'no'.");
 		String wantsToAdd = prompt();
 		
 		if (wantsToAdd.equals("yes")) {
-			String assignmentTypeName = promptAssignmentType();
-			String assignmentWeight = promptWeight(assignmentTypeName);
+			String newAssignement = createNewAssignmentType(courseName);
+			//TOM:
+			//Here is where you want to write a line to the file.
+			//The 'newAssignment' variable above should be formatted correctly as "type weight" so that you can just add it into the text file as is. 
 			
-			System.out.println("Assignment '" + assignmentTypeName + "' with a weight of " + assignmentWeight + " added to course '" + courseName + "'.");
-			addNewAssignmentType(courseName);
+			promptAddNewAssignmentType(courseName);
 		}
 		else if (wantsToAdd.equals("no")) {
 			System.out.println("Done!");
 		}
 		else {
-			System.out.println("Response not understood. Please try again.");
-			addNewAssignmentType(courseName);
+			System.out.println("Response not accepted. Please try again.");
+			promptAddNewAssignmentType(courseName);
 		}
 	}
 	

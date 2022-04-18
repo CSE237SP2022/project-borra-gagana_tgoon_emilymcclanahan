@@ -92,7 +92,8 @@ public class Bearbot {
 			System.out.println("Done!");
 		}
 		else {
-			System.out.println("Response not understood. Would you like to add a new assignment type for course " + courseName + "? Please type 'yes' or 'no'.");
+			System.out.println("Response not understood. Please try again.");
+			addNewAssignmentType(courseName);
 		}
 	}
 	

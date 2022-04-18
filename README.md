@@ -27,7 +27,8 @@ Java command line program that is fed in a text file with class assignment weigh
 
 We currently only have CSE237 as the only available course listed. There is only one date file available to test as well. In Iteration 3, we will allow users to create more courses and date files.
 
- Everything for this iteration should be functional. To run the bash script: ./gradecalculator.sh
+ Everything for this iteration should be functional. Make sure you are in the project directory. To run the bash script: ./gradecalculator.sh
+ Since there is only one course and one date file, you must type in "CSE237" for the course and "04_06_2020.txt" for the date file prompt. If you type something else, Bearbot will prompt you again.
 
 ## Iteration 3 To-do
 - Create a method where BearBot should be able to allow the user to create a new course with course weights

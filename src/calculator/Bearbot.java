@@ -18,17 +18,16 @@ public class Bearbot {
 		String userInput = scanner.nextLine();
 		return userInput;
 	}
-  
+
 	public String[] getCourses() {
 		File file = new File("./src/courses");
 		String[] courses = file.list();
 		return courses;
 	}
 
-	
 	public String[] printCourses() {
 		String[] courses = getCourses();
-		for (String course: courses) {
+		for (String course : courses) {
 			System.out.println(course);
 		}
 		return courses;
@@ -48,17 +47,16 @@ public class Bearbot {
 	}
 
 	public void welcome() {
-		System.out.println("Hi, I'm BearBot, your friendly grade calculator! Please pick a course from the list below, or type 'new' to create a new course.");
+		System.out.println(
+				"Hi, I'm BearBot, your friendly grade calculator! Please pick a course from the list below, or type 'new' to create a new course.");
 		String[] courses = printCourses();
 		String courseName = prompt();
-		
+
 		if (courseName.equals("new")) {
 			createNewCourse();
-		}
-		else if (arrayContainsString(courses, courseName)) {
+		} else if (arrayContainsString(courses, courseName)) {
 			getDesiredDateFile(courseName);
-		}
-		else {
+		} else {
 			System.out.println("Class not found, please try again.");
 			welcome();
 		}
@@ -137,31 +135,31 @@ public class Bearbot {
 			promptAddNewAssignmentType(courseName);
 		}
 	}
-	
+
 	public String promptAssignmentType() {
 		System.out.println("What would you like to call this assignment type?");
 		String assignmentTypeName = prompt();
-		
+
 		if (!isValidStringInput(assignmentTypeName)) {
 			return promptAssignmentType();
 		}
-		
+
 		return assignmentTypeName;
 	}
-	
+
 	public String promptWeight(String assignmentType) {
 		System.out.println("Enter the percentage weight for assignment type '" + assignmentType + "'.");
 		String assignmentWeight = prompt();
-		
+
 		if (!isValidPercentInput(assignmentWeight)) {
 			return promptWeight(assignmentType);
 		}
-		
+
 		return assignmentWeight;
 	}
-	
+
 	public Boolean isValidStringInput(String input) {
-		if (input.contains(" ") ) {
+		if (input.contains(" ")) {
 			System.out.println("Please enter a value that does not countain spaces.");
 			return false;
 		}
@@ -181,16 +179,13 @@ public class Bearbot {
 		return true;
 	}
 
-	
-	
-	public void getDesiredDateFile (String courseName) {
+	public void getDesiredDateFile(String courseName) {
 		System.out.println("Which day would you like to see your grades for?");
 		String[] dateFiles = printDateFiles(courseName);
 		String dateFileName = prompt();
 		if (arrayContainsString(dateFiles, dateFileName)) {
 			printGrade(courseName, dateFileName);
-		}
-		else {
+		} else {
 			System.out.println("File not found, please try again.");
 			getDesiredDateFile(courseName);
 		}
@@ -201,15 +196,15 @@ public class Bearbot {
 		String courseWeightsFilePath = "courses/" + courseName + "/weights.txt";
 		String courseGradeFilePath = "courses/" + courseName + "/grades/" + dateFileName;
 
-		FileReader fr = new FileReader(courseWeightsFilePath, courseGradeFilePath);
+		FileReader fileReader = new FileReader(courseWeightsFilePath, courseGradeFilePath);
 
-		Hashtable<String, Double> courseGradingScale = fr.createGradingScale();
-		ArrayList<Assignment> courseAssignments = fr.createAssignments();
+		Hashtable<String, Double> courseGradingScale = fileReader.createGradingScale();
+		ArrayList<Assignment> courseAssignments = fileReader.createAssignments();
 
-		Course c = new Course(courseGradingScale, courseAssignments);
+		Course course = new Course(courseGradingScale, courseAssignments);
 
-		Double courseGrade = c.getFinalGrade();
-		String courseLetterGrade = c.getLetterGrade();
+		Double courseGrade = course.getFinalGrade();
+		String courseLetterGrade = course.getLetterGrade();
 
 		System.out.println("Your grade for " + courseName + " is: " + courseGrade + ", " + courseLetterGrade);
 

@@ -33,9 +33,14 @@ public class Bearbot {
 		return courses;
 	}
 
-	public String[] printDateFiles(String courseName) {
+	public String[] getDateFiles(String courseName) {
 		File file = new File("./src/courses/" + courseName + "/grades");
 		String[] dateFiles = file.list();
+		return dateFiles;
+	}
+
+	public String[] printDateFiles(String courseName) {
+		String[] dateFiles = getDateFiles(courseName);
 		for (String dateFile : dateFiles) {
 			System.out.println(dateFile);
 		}
@@ -160,7 +165,11 @@ public class Bearbot {
 
 	public Boolean isValidStringInput(String input) {
 		if (input.contains(" ")) {
+<<<<<<< HEAD
 			System.out.println("Please enter a value that does not countain spaces.");
+=======
+			System.out.println("Please enter a value that does not contain spaces.");
+>>>>>>> main
 			return false;
 		}
 		if (input.isBlank()) {
@@ -179,15 +188,107 @@ public class Bearbot {
 		return true;
 	}
 
+<<<<<<< HEAD
 	public void getDesiredDateFile(String courseName) {
 		System.out.println("Which day would you like to see your grades for?");
+=======
+	public Boolean isValidDateInput(String input) {
+		String regex = "/^(0[1-9]|1[0-2])_(0[1-9]|[12][0-9]|3[01])_\\d{4}/";
+		if (!input.matches(regex)) {
+			System.out.println("Please enter a valid date.");
+			return false;
+		}
+		return true;
+	}
+
+	public void getDesiredDateFile(String courseName) {
+		System.out.println(
+				"Would you like to create a new date file with updated grades or use an existing date file? If entering "
+						+ "new date file, please enter 'new' ");
+>>>>>>> main
 		String[] dateFiles = printDateFiles(courseName);
 		String dateFileName = prompt();
-		if (arrayContainsString(dateFiles, dateFileName)) {
+		if (dateFileName.equals("new")) {
+			createNewDateFileGrades(courseName);
+		} else if (arrayContainsString(dateFiles, dateFileName)) {
 			printGrade(courseName, dateFileName);
 		} else {
 			System.out.println("File not found, please try again.");
 			getDesiredDateFile(courseName);
+		}
+	}
+
+	public void createNewDateFileGrades(String courseName) {
+		System.out.println("Enter the date of your updated grades in the format: 'mm_dd_yyyy'.");
+		String newDateFile = prompt();
+
+		String[] dateFiles = getDateFiles(courseName);
+
+		if (arrayContainsString(dateFiles, newDateFile + ".txt")) {
+			System.out.println("Date file with the name '" + newDateFile + "' already exists. Please try again.");
+			createNewDateFileGrades(courseName);
+		} /*
+			 * else if (!isValidDateInput(newDateFile)) {
+			 * createNewDateFileGrades(courseName); }
+			 */ else {
+			// this.makeNewCourseDirectory(newDateFile);
+			System.out.println("Please add at least one assignment's grade for date file '" + newDateFile + "'.");
+
+			String assignmentNameTypeGrade = createNewAssignmentGrade(newDateFile);
+			// this.appendLineToFile("./src/courses/" + newCourseName + "/weights.txt",
+			// assignmentTypeAndWeight);
+
+			System.out.println("Successfully created '" + newDateFile + "' date file.");
+
+			promptAddNewAssignmentGrade(newDateFile);
+		}
+	}
+	
+	public String createNewAssignmentGrade(String dateFile) {
+		String assignmentName = promptAssignmentName();
+		String assignmentType = promptAssignmentType(); //fix this later
+		String assignmentGrade = promptAssignmentGrade(assignmentName); 
+		System.out.println("Assignment '" + assignmentName + "' with a type of '" + assignmentType +
+				"' and a grade of " + assignmentGrade + " added to the date file '" + dateFile + "'.");
+		
+		return assignmentName + " " + assignmentType + " " + assignmentGrade;
+	}
+
+	public String promptAssignmentName() {
+		System.out.println("What would you like to name this assignment?");
+		String assignmentName = prompt();
+		
+		if (!isValidStringInput(assignmentName)) {
+			return promptAssignmentName();
+		}
+				
+		return assignmentName;
+	}
+	
+	public String promptAssignmentGrade(String assignmentName) {
+		System.out.println("What grade would you like to assign to assignment '" + assignmentName + "'?");
+		String assignmentGrade = prompt();
+		
+		if (!isValidPercentInput(assignmentGrade)) {
+			return promptAssignmentGrade(assignmentName);
+		}
+				
+		return assignmentGrade;
+	}
+	public void promptAddNewAssignmentGrade(String dateFile) {
+		System.out.println("Would you like to add a new assignment grade for '" + dateFile
+				+ "'? Please type 'yes' or 'no'.");
+		String wantsToAdd = prompt();
+
+		if (wantsToAdd.equals("yes")) {
+			String newAssignment = createNewAssignmentGrade(dateFile);
+			//this.appendLineToFile("./src/courses/" + courseName + "/weights.txt", newAssignment);
+			promptAddNewAssignmentGrade(dateFile);
+		} else if (wantsToAdd.equals("no")) {
+			System.out.println("Done!");
+		} else {
+			System.out.println("Response not accepted. Please try again.");
+			promptAddNewAssignmentGrade(dateFile);
 		}
 	}
 

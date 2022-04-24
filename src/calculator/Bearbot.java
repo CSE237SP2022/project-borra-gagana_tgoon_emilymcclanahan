@@ -2,6 +2,7 @@ package calculator;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +21,11 @@ public class Bearbot {
 		String userInput = scanner.nextLine();
 		return userInput;
 	}
+	
+	public String promptWithMessage(String message) {
+		System.out.println(message);
+		return prompt();
+	}
 
 	public void welcome() {
 		System.out.println("Hi, I'm BearBot, your friendly grade calculator! Please pick a course from the list below, or type 'new' to create a new course.");
@@ -37,9 +43,8 @@ public class Bearbot {
 	}
 
 	public void promptAddNewAssignmentType(String courseName) {
-		System.out.println("Would you like to add a new assignment type for '" + courseName
+		String wantsToAdd = promptWithMessage("Would you like to add a new assignment type for '" + courseName
 				+ "' course? Please type 'yes' or 'no'.");
-		String wantsToAdd = prompt();
 
 		if (wantsToAdd.equals("yes")) {
 			String newAssignment = createNewAssignmentType(courseName);
@@ -54,8 +59,7 @@ public class Bearbot {
 	}
 
 	public String promptAssignmentType() {
-		System.out.println("What would you like to call this assignment type?");
-		String assignmentTypeName = prompt();
+		String assignmentTypeName = promptWithMessage("What would you like to call this assignment type?");
 
 		if (!isValidStringInput(assignmentTypeName)) {
 			return promptAssignmentType();
@@ -63,10 +67,25 @@ public class Bearbot {
 
 		return assignmentTypeName;
 	}
-
+	
+	public String promptExistingAssignmentType(String courseName) {
+		System.out.println("Please choose an assignment type from the list below.");
+		String[] assignmentTypes = printAssignmentTypes(courseName);
+		
+		String assignmentType = prompt();
+		
+		if (arrayContainsString(assignmentTypes, assignmentType)) {
+			return assignmentType;
+		}
+		
+		System.out.println("Assignment type not found, please try again.");
+		return promptExistingAssignmentType(courseName);
+		
+		
+	}
+	
 	public String promptWeight(String assignmentType) {
-		System.out.println("Enter the percentage weight for assignment type '" + assignmentType + "'.");
-		String assignmentWeight = prompt();
+		String assignmentWeight = promptWithMessage("Enter the percentage weight for assignment type '" + assignmentType + "'.");
 
 		if (!isValidPercentInput(assignmentWeight)) {
 			return promptWeight(assignmentType);
@@ -76,8 +95,7 @@ public class Bearbot {
 	}
 
 	public String promptAssignmentName() {
-		System.out.println("What would you like to name this assignment?");
-		String assignmentName = prompt();
+		String assignmentName = promptWithMessage("What would you like to name this assignment?");
 
 		if (!isValidStringInput(assignmentName)) {
 			return promptAssignmentName();
@@ -87,8 +105,7 @@ public class Bearbot {
 	}
 	
 	public String promptAssignmentGrade(String assignmentName) {
-		System.out.println("What grade would you like to assign to assignment '" + assignmentName + "'?");
-		String assignmentGrade = prompt();
+		String assignmentGrade = promptWithMessage("What grade would you like to assign to assignment '" + assignmentName + "'?");
 
 		if (!isValidPercentInput(assignmentGrade)) {
 			return promptAssignmentGrade(assignmentName);
@@ -98,11 +115,10 @@ public class Bearbot {
 	}
 
 	public void promptAddNewAssignmentGrade(String courseName, String dateFile) {
-		System.out.println("Would you like to add a new assignment grade for '" + dateFile + "'? Please type 'yes' or 'no'.");
-		String wantsToAdd = prompt();
+		String wantsToAdd = promptWithMessage("Would you like to add a new assignment grade for '" + dateFile + "'? Please type 'yes' or 'no'.");
 
 		if (wantsToAdd.equals("yes")) {
-			String newAssignment = createNewAssignmentGrade(dateFile);
+			String newAssignment = createNewAssignmentGrade(dateFile, courseName);
 			this.appendLineToFile("./src/courses/" + courseName + "/grades/" + dateFile + ".txt", newAssignment);
 			promptAddNewAssignmentGrade(courseName, dateFile);
 		} else if (wantsToAdd.equals("no")) {
@@ -125,6 +141,26 @@ public class Bearbot {
 		File file = new File("./src/courses/" + courseName + "/grades");
 		String[] dateFiles = file.list();
 		return dateFiles;
+	}
+	
+	public ArrayList<String> getAssignmentTypes(String courseName){
+		File file = new File("./src/courses/" + courseName + "/weights.txt");
+		Scanner fileContents;
+		
+		ArrayList<String> assignmentTypes = new ArrayList<String>();
+		
+		try {
+			fileContents = new Scanner(file);
+			while (fileContents.hasNext()) {
+				String line = fileContents.next();
+				assignmentTypes.add(line);
+				fileContents.next();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return assignmentTypes;
 	}
 
 	// Printers
@@ -165,6 +201,19 @@ public class Bearbot {
 		this.welcome();
 	}
 	
+	public String[] printAssignmentTypes(String courseName){
+		ArrayList<String> assignmentTypes = getAssignmentTypes(courseName);
+		
+		int arraySize = assignmentTypes.size();
+		String[] assignmentTypesArray = new String[arraySize];
+		for (int i=0; i<arraySize; i++) {
+			String assignmentType = assignmentTypes.get(i);
+			assignmentTypesArray[i] = assignmentType;
+			System.out.println(assignmentType);
+		}
+		return assignmentTypesArray;
+	}
+	
 	// Handlers
 	
 	public void handleDesiredDateFile(String courseName) {
@@ -183,8 +232,7 @@ public class Bearbot {
 	}
 	
 	public void handleNewCourse() {
-		System.out.println("What would you like to name this course?");
-		String newCourseName = prompt();
+		String newCourseName = promptWithMessage("What would you like to name this course?");
 
 		String[] courses = getCourses();
 
@@ -199,8 +247,7 @@ public class Bearbot {
 	}
 	
 	public void handleNewDateFile(String courseName) {
-		System.out.println("Enter the date of your updated grades in the format: 'mm_dd_yyyy'.");
-		String newDateFile = prompt();
+		String newDateFile = promptWithMessage("Enter the date of your updated grades in the format: 'mm_dd_yyyy'.");
 
 		String[] dateFiles = getDateFiles(courseName);
 
@@ -232,7 +279,7 @@ public class Bearbot {
 		this.createNewDateFile(courseName, newDateFile);
 		System.out.println("Please add at least one assignment's grade for date file '" + newDateFile + "'.");
 
-		String assignmentNameTypeGrade = createNewAssignmentGrade(newDateFile);
+		String assignmentNameTypeGrade = createNewAssignmentGrade(newDateFile, courseName);
 		this.appendLineToFile("./src/courses/" + courseName + "/grades/" + newDateFile + ".txt",
 				assignmentNameTypeGrade);
 
@@ -275,9 +322,9 @@ public class Bearbot {
 		return assignmentTypeName + " " + assignmentWeight;
 	}
 
-	public String createNewAssignmentGrade(String dateFile) {
+	public String createNewAssignmentGrade(String dateFile, String courseName) {
 		String assignmentName = promptAssignmentName();
-		String assignmentType = promptAssignmentType(); // fix this later
+		String assignmentType = promptExistingAssignmentType(courseName);
 		String assignmentGrade = promptAssignmentGrade(assignmentName);
 		System.out.println("Assignment '" + assignmentName + "' with a type of '" + assignmentType + "' and a grade of "
 				+ assignmentGrade + " added to the date file '" + dateFile + "'.");

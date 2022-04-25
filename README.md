@@ -39,14 +39,12 @@ We currently only have CSE237 as the only available course listed. There is only
  - BearBot allows the user to enter grades
  - BearBot allows the user to create a new course with course weights
  - BearBot is able to save course weights and grades to files
- - Spent significant time going back and adding/updating unit tests for classes which fell short
- - Cleaned and updated code cleanliness for past code 
 
 Addressing Iteration 2 Feedback:
- - Testing: We made sure to add more tests to be more thorough.
+ - Testing: We made sure to add more tests to be more thorough. We spent significant time going back and adding/updating unit tests for classes which fell short.
  - Project Organization: We only had three more tasks to do, so we only added three more cards. But, we made sure to follow the requested format on these cards. Also, we talked with professor Shook, and he said that our project organization for iteration 2 was actually fine, it was just that our cards from iteration 1 were wrong and they were on top.
  - Repository Management: We only made 3 more branches because we only created three additional cards. But, we made sure that each of the branches were directly related to the cards.
- - Code Cleanliness: We did some work cleaning up indentation and typos, as well as reducing the size of some methods. 
+ - Code Cleanliness: We did some work cleaning up indentation and typos, as well as reducing the size of some methods.
  - Functionality: We added additional functionality!
 
 Everything for this iteration should be functional. Make sure you are in the project directory. To run the bash script type: ./gradecalculator.sh

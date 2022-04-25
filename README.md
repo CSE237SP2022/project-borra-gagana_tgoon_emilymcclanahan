@@ -33,3 +33,15 @@ We currently only have CSE237 as the only available course listed. There is only
 ## Iteration 3 To-do
 - Create a method where BearBot should be able to allow the user to create a new course with course weights
 - Create a method where BearBot should be able to allow the user to enter grades for a course and potentially save to a file
+
+## Iteration 3
+-User Stories (3 new tasks):
+ - BearBot is able to allow the user to enter grades
+ - BearBot is able to allow the user to create a new course with course weights
+ - BearBot is able to save course weights and grades to files
+ - Spent significant time going back and adding/updating unit tests for classes which fell short
+ - Cleaned and updated code cleanliness for past code 
+
+Everything for this iteration should be functional. Make sure you are in the project directory. To run the bash script type: ./gradecalculator.sh
+
+The prompting should be straightforward but the idea is that you can choose from exiting courses and grades to calculate your grade, or you can make a new course with new weightings and new grades for a different day/updated grades. 
